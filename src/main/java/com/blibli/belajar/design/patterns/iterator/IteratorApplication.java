@@ -1,4 +1,4 @@
-package com.blibli.belajar.design.patterns;
+package com.blibli.belajar.design.patterns.iterator;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
