@@ -26,7 +26,7 @@ public class PrototypeApplication {
     @SpringBootApplication
     public static class Configuration {
 
-        @Bean
+        @Bean("standardCustomer")
         @Scope("prototype")
         public Customer standardCustomer() {
             return Customer.builder()
@@ -34,14 +34,28 @@ public class PrototypeApplication {
                     .discount(10)
                     .build();
         }
+
+        // Default bean name: function name
+        @Bean("premiumCustomer")
+        @Scope("prototype")
+        public Customer premiumCustomer() {
+            return Customer.builder()
+                    .category("premium")
+                    .discount(50)
+                    .build();
+        }
     }
 
     public static void main(String[] args) {
         ApplicationContext context = SpringApplication.run(Configuration.class);
 
-        Customer customerStandard1 = context.getBean(Customer.class);
-        Customer customerStandard2 = context.getBean(Customer.class);
-        Customer customerStandard3 = context.getBean(Customer.class);
+        Customer customerStandard1 = context.getBean("standardCustomer", Customer.class);
+        Customer customerStandard2 = context.getBean("standardCustomer", Customer.class);
+        Customer customerStandard3 = context.getBean("standardCustomer", Customer.class);
+
+        Customer premiumCustomer1 = context.getBean("premiumCustomer", Customer.class);
+        Customer premiumCustomer2 = context.getBean("premiumCustomer", Customer.class);
+        Customer premiumCustomer3 = context.getBean("premiumCustomer", Customer.class);
 
         System.out.println(customerStandard1 == customerStandard2);
         System.out.println(customerStandard2 == customerStandard3);
@@ -49,5 +63,9 @@ public class PrototypeApplication {
         System.out.println(customerStandard1);
         System.out.println(customerStandard2);
         System.out.println(customerStandard3);
+
+        System.out.println(premiumCustomer1);
+        System.out.println(premiumCustomer2);
+        System.out.println(premiumCustomer3);
     }
 }
