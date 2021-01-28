@@ -1,2 +1,11 @@
 GET http://localhost:8080/
 X-API: Test
+
+###
+
+GET http://localhost:8080/api/members/12345
+Accept: application/json
+X-Request-Id: requestId
+X-User-Id: emmanuel
+X-Timestamp: 0
+X-Service-Id: web
